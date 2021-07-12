@@ -1,0 +1,37 @@
+PODS:
+  - Flutter (1.0.0)
+  - PryntTrimmerView (4.0.2)
+  - SteviaLayout (4.7.3)
+  - ypimage (0.0.1):
+    - Flutter
+    - YPImagePicker
+  - YPImagePicker (4.5.0):
+    - PryntTrimmerView (~> 4.0.2)
+    - SteviaLayout (~> 4.7.3)
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - ypimage (from `.symlinks/plugins/ypimage/ios`)
+
+SPEC REPOS:
+  trunk:
+    - PryntTrimmerView
+    - SteviaLayout
+    - YPImagePicker
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  ypimage:
+    :path: ".symlinks/plugins/ypimage/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
+  SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
+  ypimage: f8d44ae179509796890cb5829c89b3e39657d822
+  YPImagePicker: 6f410f475bd22fa8cd430495b54d4b2f15865c2d
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.10.1
