@@ -68,7 +68,7 @@ public class SwiftYpimagePlugin: NSObject, FlutterPlugin {
         config.library.spacingBetweenItems = 1.0
         config.library.skipSelectionsGallery = false
         config.library.preselectedItems = nil
-        config.library.maxNumberOfItems = 3
+        config.library.maxNumberOfItems = 9
         let picker = YPImagePicker(configuration: config)
         picker.didFinishPicking { [unowned picker] items, cancelled in
             //此处需要nsopration
