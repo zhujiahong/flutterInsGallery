@@ -153,7 +153,7 @@ public class SwiftYpimagePlugin: NSObject, FlutterPlugin {
             
 //            self.results!("hahahahaha")
        
-//            picker.dismiss(animated: true, completion: nil)
+            picker.dismiss(animated: true, completion: nil)
         }
         
        
