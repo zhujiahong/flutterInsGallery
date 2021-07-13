@@ -52,10 +52,11 @@ public class SwiftYpimagePlugin: NSObject, FlutterPlugin {
         config.hidesCancelButton = false
         config.preferredStatusBarStyle = UIStatusBarStyle.default
         
+        
     
 //        config.filters = [DefaultYPFilters...]
         config.maxCameraZoomFactor = 1.0
-//        config.preSelectItemOnMultipleSelection = true
+        
         
         config.library.options = nil
         config.library.onlySquare = false
@@ -63,6 +64,8 @@ public class SwiftYpimagePlugin: NSObject, FlutterPlugin {
         config.library.minWidthForItem = nil
         config.library.mediaType = YPlibraryMediaType.photoAndVideo
         config.library.defaultMultipleSelection = false
+        
+        
 //        config.library.maxNumberOfItems = 1
         config.library.minNumberOfItems = 1
         config.library.numberOfItemsInRow = 4
@@ -153,7 +156,7 @@ public class SwiftYpimagePlugin: NSObject, FlutterPlugin {
             
 //            self.results!("hahahahaha")
        
-            picker.dismiss(animated: true, completion: nil)
+//            picker.dismiss(animated: true, completion: nil)
         }
         
        
