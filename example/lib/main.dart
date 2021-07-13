@@ -22,6 +22,8 @@ class _MyAppState extends State<MyApp> {
 
   var result;
 
+  var image;
+
   // Platform messages are asynchronous, so we initialize in an async method.
 
   @override
@@ -34,11 +36,16 @@ class _MyAppState extends State<MyApp> {
         body: Center(
             child: TextButton(
                 onPressed: () async {
-                  result = await Ypimage.presentInsImage();
+                  await Ypimage.presentInsImage()
+                      .then((value) => {result = value});
+
                   setState(() {});
                 },
                 child: Column(
-                  children: [Text('sssssssss'), Text('原生数据：${result}')],
+                  children: [
+                    Text('sssssssss'),
+                    result != null ? Image.memory(result) : Container()
+                  ],
                 ))),
       ),
     );

@@ -3,6 +3,7 @@ import UIKit
 import YPImagePicker
 import Photos
 
+
 public class SwiftYpimagePlugin: NSObject, FlutterPlugin {
     
   public static func register(with registrar: FlutterPluginRegistrar) {
@@ -41,7 +42,7 @@ public class SwiftYpimagePlugin: NSObject, FlutterPlugin {
         config.showsVideoTrimmer = true
         config.shouldSaveNewPicturesToAlbum = true
         config.albumName = "DefaultYPImagePickerAlbumName"
-        config.startOnScreen = YPPickerScreen.photo
+        config.startOnScreen = YPPickerScreen.library
         config.screens = [.library, .photo,.video]
         config.showsCrop = .none
         config.targetImageSize = YPImageSize.original
@@ -71,12 +72,11 @@ public class SwiftYpimagePlugin: NSObject, FlutterPlugin {
         config.library.maxNumberOfItems = 9
         let picker = YPImagePicker(configuration: config)
         picker.didFinishPicking { [unowned picker] items, cancelled in
-            //此处需要nsopration
-//            let queue = DispatchQueue.global()
-             //创建信号量  值为1  意思是最大并发数为1，任务只能一个接一个执行
+
             self.videos.removeAll(keepingCapacity: true)
             self.images.removeAll(keepingCapacity: true)
             
+       
             
             var lastImageIndex:Int?;
             
@@ -95,6 +95,16 @@ public class SwiftYpimagePlugin: NSObject, FlutterPlugin {
                 
                 switch item {
                 case .photo(let photo):
+                    if photo.fromCamera {
+                        let imageData = photo.image.jpegData(compressionQuality: 1)
+                        
+                        self.results!(imageData)
+                        
+
+                      
+
+
+                    }
                     
                      photo.asset?.getURL(completionHandler: { url in
                         
@@ -118,15 +128,17 @@ public class SwiftYpimagePlugin: NSObject, FlutterPlugin {
                     
                     
                 case .video(let video):
+                 
                     print(video.url.absoluteString)
                     self.videos.append(video.url.absoluteString)
-//                    if i == items.count - 1 {
-//                        let retDic:Dictionary = ["images":self.images,"videos":self.videos]
-//                        print(retDic)
-//                        if self.results != nil {
-//                            self.results!(retDic)
-//                        }
-//                    }
+                    if items.count == 1 {
+                        let retDic:Dictionary = ["images":self.images,"videos":self.videos]
+                                               print(retDic)
+                                               if self.results != nil {
+                                                   self.results!(retDic)
+                                               }
+                    }
+
                 }
             
             
@@ -141,7 +153,7 @@ public class SwiftYpimagePlugin: NSObject, FlutterPlugin {
             
 //            self.results!("hahahahaha")
        
-            picker.dismiss(animated: true, completion: nil)
+//            picker.dismiss(animated: true, completion: nil)
         }
         
        
