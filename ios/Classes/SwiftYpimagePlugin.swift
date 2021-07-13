@@ -98,35 +98,20 @@ public class SwiftYpimagePlugin: NSObject, FlutterPlugin {
                 
                 switch item {
                 case .photo(let photo):
-                    if photo.fromCamera {
-                        let imageData = photo.image.jpegData(compressionQuality: 1)
-                        
-                        self.results!(imageData)
-                        
-
-                      
-
-
+//                    if photo.fromCamera {
+                    let imageData = photo.image.jpegData(compressionQuality: 1)
+                    self.images.append(imageData!);
+                    if i == items.count - 1 {
+                  
+                        let retDic:Dictionary = ["images":self.images,"videos":self.videos]
+                                               print(retDic)
+                                               if self.results != nil {
+                                                   self.results!(retDic)
+                                               }
                     }
-                    
-                     photo.asset?.getURL(completionHandler: { url in
-                        
-                        print(url ?? "null")
-                        if url != nil {
-                            self.images.append(url!.absoluteString)
-                           
-                        }
-                        
-                        if i == lastImageIndex {
-                            let retDic:Dictionary = ["images":self.images,"videos":self.videos]
-                            print(retDic)
-                            if self.results != nil {
-                                self.results!(retDic)
-                            }
-                        }
-                    
-                     
-                    })
+             
+
+
                     
                     
                     
@@ -134,7 +119,7 @@ public class SwiftYpimagePlugin: NSObject, FlutterPlugin {
                  
                     print(video.url.absoluteString)
                     self.videos.append(video.url.absoluteString)
-                    if items.count == 1 {
+                    if i == items.count - 1 {
                         let retDic:Dictionary = ["images":self.images,"videos":self.videos]
                                                print(retDic)
                                                if self.results != nil {
