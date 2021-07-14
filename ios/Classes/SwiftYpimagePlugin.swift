@@ -74,6 +74,9 @@ public class SwiftYpimagePlugin: NSObject, FlutterPlugin {
         config.library.preselectedItems = nil
         config.library.maxNumberOfItems = 9
         let picker = YPImagePicker(configuration: config)
+        
+        
+    
         picker.didFinishPicking { [unowned picker] items, cancelled in
 
             self.videos.removeAll(keepingCapacity: true)
@@ -82,15 +85,32 @@ public class SwiftYpimagePlugin: NSObject, FlutterPlugin {
        
             
             var lastImageIndex:Int?;
+            var imageNum:Int? = 0;
+            var videoNum:Int? = 0;
             
             for i in 0..<items.count {
                 let item = items[i]
                 switch item {
                 case .photo:
                     lastImageIndex = i;
+                    imageNum!+=1;
                 case .video:
+                    videoNum!+=1;
                     continue;
                 }
+            }
+            
+            if imageNum! > 0 && videoNum! > 0 {
+                let alertController = UIAlertController(title: "", message: "最多可选择九张图片或一个视频", preferredStyle: .alert)
+                
+                let okAction = UIAlertAction(title: "确定", style: .default) { (action) in
+                    print("点击了确定")
+                }
+                
+                alertController.addAction(okAction)
+              
+              picker.present(alertController, animated: true, completion: nil)
+                return;
             }
             
             for i in 0..<items.count {
@@ -152,6 +172,11 @@ public class SwiftYpimagePlugin: NSObject, FlutterPlugin {
 //        let fluttervc:UIViewController = UIApplication.shared.delegate?.window
 //        fluttervc.present(picker, animated: true, completion: nil)
     }
+    
+    func numAlert(){
+    
+      }
+  
     
     
 }

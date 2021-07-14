@@ -27,7 +27,8 @@ class _MyAppState extends State<MyApp> {
   Map result;
 
   var image;
-  List images;
+  List images = [];
+  List videos = [];
   List<File> imageFiles = [];
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -42,13 +43,14 @@ class _MyAppState extends State<MyApp> {
         body: Center(
             child: TextButton(
                 onPressed: () async {
-                  await Ypimage.presentInsImage().then((value) {
+                  await Ypimage.presentInsImage().then((value) async {
                     result = value;
                     images = result['images'];
-                    for (Uint8List item in images) {
-                      int index = images.indexOf(item);
+                    videos = result['videos'];
 
-                      imagesSave(item, index);
+                    imageFiles.clear();
+                    if (images.length > 0) {
+                      await Future.wait(images.map((e) => imagesSave(e)));
                     }
                   });
 
@@ -58,7 +60,7 @@ class _MyAppState extends State<MyApp> {
                     child: Column(
                   children: [
                     Text('sssssssss'),
-                    result != null
+                    imageFiles.length > 0
                         ? ListView.builder(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
@@ -67,16 +69,17 @@ class _MyAppState extends State<MyApp> {
                               File image = imageFiles[index];
                               return Image.file(image);
                             })
-                        : Container()
+                        : Container(),
+                    videos.length > 0 ? Text(videos.toString()) : Container()
                   ],
                 )))),
       ),
     );
   }
 
-  Future imagesSave(Uint8List item, int index) async {
+  Future imagesSave(Uint8List item) async {
     var path = await getTemporaryDirectory();
-    final myImagePath = path.path + "/myimg$index.png";
+    final myImagePath = path.path + "/myimg${item.lengthInBytes}.png";
     File imageFile = File(myImagePath);
     if (!await imageFile.exists()) {
       imageFile.create(recursive: true);
