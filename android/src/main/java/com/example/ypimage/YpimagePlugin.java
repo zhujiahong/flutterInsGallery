@@ -20,9 +20,7 @@ import com.luck.picture.lib.listener.OnAlbumItemClickListener;
 import com.luck.picture.lib.listener.OnResultCallbackListener;
 import com.luck.picture.lib.permissions.PermissionChecker;
 import com.luck.picture.lib.tools.PictureFileUtils;
-import com.luck.pictureselector.GlideCacheEngine;
-import com.luck.pictureselector.GlideEngine;
-import com.luck.pictureselector.adapter.GridImageAdapter;
+
 
 import org.jetbrains.annotations.NotNull;
 
@@ -54,7 +52,7 @@ public class YpimagePlugin implements FlutterPlugin, MethodCallHandler ,Activity
 
 
   private MethodChannel channel;
-  private GridImageAdapter mAdapter ;
+
 
   private final static String TAG = PluginRegistry.Registrar .class.getSimpleName();
   private   Activity activity;
@@ -80,33 +78,6 @@ public class YpimagePlugin implements FlutterPlugin, MethodCallHandler ,Activity
     if (call.method.equals("getPlatformVersion")) {
       result.success("Android " + android.os.Build.VERSION.RELEASE);
     }if (call.method.equals("presentInsImage")) {
-
-          if (PermissionChecker.checkSelfPermission(context, Manifest.permission.CAMERA) &&PermissionChecker.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)&&PermissionChecker.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-
-            Log.d("打印","ss");
-
-            mAdapter = new GridImageAdapter(context, new GridImageAdapter.onAddPicClickListener() {
-              @Override
-              public void onAddPicClick() {
-
-              }
-            });
-            InsGallery.openGallery(this.activity, GlideEngine.createGlideEngine(), GlideCacheEngine.createCacheEngine(), new OnResultCallbackListenerImpl(mAdapter));
-
-          } else {
-      PermissionChecker.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,},
-              PictureConfig.APPLY_STORAGE_PERMISSIONS_CODE);
-    }
-
-
-//      InsGallery.openGallery(Activity, GlideEngine.createGlideEngine(), new OnResultCallbackListenerImpl(mAdapter));
-
-
-
-//if (activity != null) {
-//        InsGallery.openGallery(activity, GlideEngine.createGlideEngine(),new OnResultCallbackListenerImpl(mAdapter));
-//}
-
 
 
 
@@ -146,38 +117,7 @@ public class YpimagePlugin implements FlutterPlugin, MethodCallHandler ,Activity
 
   }
 
-  private static class OnResultCallbackListenerImpl implements OnResultCallbackListener<LocalMedia> {
-    private WeakReference<com.luck.pictureselector.adapter.GridImageAdapter> mAdapter;
 
-    public OnResultCallbackListenerImpl(com.luck.pictureselector.adapter.GridImageAdapter adapter) {
-      mAdapter = new WeakReference<>(adapter);
-    }
-
-    @Override
-    public void onResult(List<LocalMedia> result) {
-      for (LocalMedia media : result) {
-        Log.i(TAG, "是否压缩:" + media.isCompressed());
-        Log.i(TAG, "压缩:" + media.getCompressPath());
-        Log.i(TAG, "原图:" + media.getPath());
-        Log.i(TAG, "是否裁剪:" + media.isCut());
-        Log.i(TAG, "裁剪:" + media.getCutPath());
-        Log.i(TAG, "是否开启原图:" + media.isOriginal());
-        Log.i(TAG, "原图路径:" + media.getOriginalPath());
-        Log.i(TAG, "Android Q 特有Path:" + media.getAndroidQToPath());
-        Log.i(TAG, "Size: " + media.getSize());
-      }
-      com.luck.pictureselector.adapter.GridImageAdapter adapter = mAdapter.get();
-      if (adapter != null) {
-        adapter.setList(result);
-        adapter.notify();
-      }
-    }
-
-    @Override
-    public void onCancel() {
-      Log.i(TAG, "PictureSelector Cancel");
-    }
-  }
 
 
 }

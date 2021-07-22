@@ -31,17 +31,21 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
 
 
 }
 
 dependencies {
-    implementation 'me.jessyan:insgallery:0.7.0'
-    implementation "androidx.appcompat:appcompat:1.1.0"
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
-    implementation "androidx.camera:camera-camera2:1.0.0-beta07"
-    implementation "com.github.bumptech.glide:glide:4.11.0"
-
-
+    api "me.jessyan:insgallery:0.7.0"
+    api "androidx.appcompat:appcompat:1.1.0"
+    api "androidx.recyclerview:recyclerview:1.1.0"
+    api "androidx.camera:camera-camera2:1.0.0-beta07"
+    api "com.github.bumptech.glide:glide:4.11.0"
 }
+
+
 
