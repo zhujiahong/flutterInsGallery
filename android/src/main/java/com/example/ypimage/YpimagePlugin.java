@@ -11,18 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 
-import com.bumptech.glide.manager.Lifecycle;
-import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.engine.ImageEngine;
-import com.luck.picture.lib.entity.LocalMedia;
-import com.luck.picture.lib.instagram.InsGallery;
-import com.luck.picture.lib.listener.OnAlbumItemClickListener;
-import com.luck.picture.lib.listener.OnResultCallbackListener;
-import com.luck.picture.lib.permissions.PermissionChecker;
-import com.luck.picture.lib.tools.PictureFileUtils;
 
 
-import org.jetbrains.annotations.NotNull;
+
+
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -58,7 +50,7 @@ public class YpimagePlugin implements FlutterPlugin, MethodCallHandler ,Activity
   private   Activity activity;
   private   Context context;
 
-  @Nullable private Lifecycle lifecycle;
+
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
     channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "ypimage");
@@ -113,7 +105,7 @@ public class YpimagePlugin implements FlutterPlugin, MethodCallHandler ,Activity
   }
 
   @Override
-  public void onDetachedFromEngine(@NonNull @NotNull FlutterPluginBinding binding) {
+  public void onDetachedFromEngine(@NonNull  FlutterPluginBinding binding) {
 
   }
 
